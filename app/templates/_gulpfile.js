@@ -31,7 +31,7 @@ let paths = {
                 dist: 'web-src/js/dist'
             },
             src: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
-            watch: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>'web-src/js/*.js',
+            watch: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
             dist: 'web-src/js/dist',
             app: {
                 src: 'web-src/js/dist/*.js',

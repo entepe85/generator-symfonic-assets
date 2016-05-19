@@ -10,11 +10,15 @@ npm install -g yo
 npm install -g generator-symfonic-assets
 ```
 
-Then generate your new project:
+Then change into a fresh Symfony PHP project folder:
 
 ```bash
 yo symfonic-assets
 ```
+
+## ATTENTION
+
+This generator is made for the sole purpose of generating front end assets for Symfony PHP framework projects, so it's mandatory to have a fresh Symfony project ready
 
 ## Getting To Know Yeoman
 
