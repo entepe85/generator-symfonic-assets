@@ -1,0 +1,64 @@
+/*
+ * <%= projectName %>
+ * Main SCSS file for composing your modules
+ */
+
+/**
+ *
+ * ###################
+ * NEW
+ * ----
+ * PostCSS-Short: (https://github.com/jonathantneal/postcss-short)
+ * Now you can use short CSS Syntax:
+ *
+ * before:
+ *
+ * .banner {
+ *   position: fixed 0 0 *;
+ * }
+ *
+ *
+ * after:
+ *
+ * banner {
+ *  position: fixed;
+ *  top: 0;
+ *  right: 0;
+ *  left: 0;
+ * }
+ * ###################
+ */
+
+@import "../css/normalize.css";
+
+<% if (useUIKit) { %>
+// Framework Integration
+$icon-font-path:    "../bower/uikit/fonts";
+@import "../../bower/uikit/scss/uikit-variables";
+@import "../../bower/uikit/scss/uikit-mixins";
+@import "../../bower/uikit/scss/uikit";
+<% } %>
+
+<% if (useBootstrap) { %>
+// Framework Integration
+// IMPORTANT: To get Glyphicons to work, you need to remove '@at-root'
+//            at bootstraps _glyphicons.scss
+$icon-font-path: "../bower/bootstrap-sass/assets/fonts/bootstrap/";
+@import "../../bower/bootstrap-sass/assets/stylesheets/bootstrap";
+<% } %>
+
+<% if (useBourbon) { %>
+@import "bourbon";
+@import "neat";
+<% } %>
+
+// Variables & Mixins
+@import "settings/variables";
+@import "settings/mixins";
+
+// Base styling
+@import "base/base";
+@import "base/text";
+
+// Component styling
+@import "components/button";

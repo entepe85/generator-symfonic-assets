@@ -1,0 +1,207 @@
+'use strict';
+var yeoman = require('yeoman-generator');
+var chalk = require('chalk');
+var yosay = require('yosay');
+var _ = require('lodash');
+var useFramework;
+
+module.exports = yeoman.Base.extend({
+  constructor: function () {
+    this._ = _;
+    yeoman.Base.apply(this, arguments);
+  },
+  
+  initializing: function () {
+    this.pkg = require('../package.json');
+  },
+
+  prompting: function () {
+    var done = this.async();
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      'Welcome to the incredible ' + chalk.red('Symfony Assets') + ' generator!'
+    ));
+
+    var prompts = [{
+      name: 'projectName',
+      message: 'What is you project\'s name?'
+    },
+    {
+      type: 'list',
+      name: 'whatFramework',
+      message: 'Would you like to use a framework?',
+      choices: [
+        {
+          name: 'UI Kit (recommended)',
+          value: 'uikit'
+        },
+        {
+          name: 'Bootstrap',
+          value: 'bootstrap'
+        },
+        {
+          name: 'Bourbon/Neat',
+          value: 'bourbon'
+        },
+        {
+          name: 'None',
+          value: 'none'
+        }
+      ]
+    },
+    {
+      when: function (answers) {
+        return answers && answers.whatFramework &&
+          answers.whatFramework.indexOf('none') !== -1;
+      },
+      type: 'confirm',
+      name: 'useJQuery',
+      message: 'Do you need jQuery?',
+      default: false
+    },
+    {
+      type: 'confirm',
+      name: 'es6',
+      value: 'useES6',
+      message: 'Do you need Babel for EcmaScript2015?',
+      default: false
+    },
+    {
+      type: 'confirm',
+      name: 'browserSync',
+      value: 'useBrowserSync',
+      message: 'Do you want to use BrowserSync for live reloading? (recommended)',
+      default: true
+    }];
+
+    return this.prompt(prompts).then(function (props) {
+      // To access props later use this.props.someAnswer;
+      this.projectName = props.projectName;
+      this.browserSync = props.browserSync;
+      this.useES6 = props.es6;
+      this.useJQuery = props.useJQuery;
+      useFramework = props.whatFramework;
+      
+      this.useUIKit = false;
+      this.useBootstrap = false;
+      this.useBourbon = false;
+      
+      function wantsFramework(fw) {
+        return useFramework && useFramework.indexOf(fw) !== -1;
+      }
+      
+      this.useUIKit = wantsFramework('uikit');
+      this.useBootstrap = wantsFramework('bootstrap');
+      this.useBourbon = wantsFramework('bourbon');
+      
+      done();
+    }.bind(this));
+  },
+
+  writing: {
+    
+    packageJSON: function () {
+      this.template('_package.json', 'package.json');
+    },
+    
+    app: function () {
+      var context = {
+          useES6:         this.useES6,
+          useUIKit:       this.useUIKit,
+          useBootstrap:   this.useBootstrap,
+          useBourbon:     this.useBourbon,
+          useJQuery:      this.useJQuery,
+          browserSync:    this.browserSync,
+          projectName:    this.projectName
+      };
+      this.template('_bower.json', 'bower.json', context);
+    },
+    
+    projectfiles: function () {
+      var context = {
+          siteName:       this.projectName,
+          useES6:         this.useES6,
+          useUIKit:       this.useUIKit,
+          useBootstrap:   this.useBootstrap,
+          useBourbon:     this.useBourbon,
+          useJQuery:      this.useJQuery,
+          projectName:    this.projectName,
+          browserSync:    this.browserSync
+      };
+
+      this.fs.copy(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
+      this.fs.copy(
+        this.templatePath('jshintrc'),
+        this.destinationPath('.jshintrc')
+      );
+      this.fs.copy(
+        this.templatePath('bowerrc'),
+        this.destinationPath('.bowerrc')
+      );
+
+      this.template('_gulpfile.js', 'gulpfile.js', context);
+
+
+
+      this.mkdir('web-src');
+
+      if (this.useES6) {
+        this.directory(
+          this.templatePath('_src/_es6'),
+          this.destinationPath('web-src/es6')
+        );
+      }
+
+      this.mkdir('web-src/scss');
+
+      this.template('_src/_scss/_app.scss', 'web-src/scss/app.scss', context);
+      this.template('_src/_scss/_settings/_variables.scss', 'web-src/scss/_settings/_variables.scss', context);
+      this.template('_src/_scss/_settings/_mixins.scss', 'web-src/scss/_settings/_mixins.scss', context);
+      
+      this.directory(
+        this.templatePath('_src/_scss/_base'),
+        this.destinationPath('web-src/scss/_base')
+      );
+
+      this.directory(
+        this.templatePath('_src/_scss/_components'),
+        this.destinationPath('web-src/scss/_components')
+      );
+
+      this.directory(
+        this.templatePath('_src/_js'),
+        this.destinationPath('web-src/js')
+      );
+      
+      this.mkdir('web-src/js/libs');
+      this.mkdir('web-src/js/dist');
+      
+      this.directory(
+        this.templatePath('_src/_css'),
+        this.destinationPath('web-src/css')
+      );
+
+    }
+    
+  },
+
+  install: function () {
+
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
+
+
+    this.on('end', function () {   
+      this.log(yosay(
+        'Yeah! You\'re all set and done!' +
+        ' Now simply run ' + chalk.green.italic('gulp') + ' and start coding!'
+      ));
+      this.spawnCommand('gulp');
+    });
+
+  }
+});

@@ -1,0 +1,25 @@
+{
+  "name": "<%= projectName %>",
+  "version": "1.0.0",
+  "authors": [
+    "bdrops GmbH (info@bdrops.de)"
+  ],
+  "description": "Symfony asset generation with Gulp, Babel, BrowserSync",
+  "main": "web/css/style.css",
+  "keywords": [
+    "jQuery",
+    "UIKit",
+    "Bootstrap",
+    "Sass",
+    "Gulp",
+    "Bourbon",
+    "Neat"
+  ],
+  "license": "MIT",
+  "dependencies": {<% if (useJQuery) { %>
+    "jquery": "latest",<% } %><% if (useUIKit) { %>
+    "uikit": "latest",<% } %><% if (useBootstrap) { %>
+    "bootstrap-sass": "3.3.5",
+    <% } %>
+  }
+}

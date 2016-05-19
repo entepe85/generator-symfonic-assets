@@ -1,0 +1,191 @@
+@mixin box-shadow($param) {
+    box-shadow: $param;
+    -webkit-box-shadow: $param;
+    -moz-box-shadow: $param;
+    -ms-box-shadow: $param;
+    -o-box-shadow: $param;
+}
+@mixin box-sizing($param) {
+    box-sizing: $param;
+    -moz-box-sizing: $param;
+    -webkit-box-sizing: $param;
+    -ms-box-sizing: $param;
+    -o-box-sizing: $param;
+    > * {
+        box-sizing: inherit;
+        -moz-box-sizing: inherit;
+        -webkit-box-sizing: inherit;
+        -ms-box-sizing: inherit;
+        -o-box-sizing: inherit;
+    }
+}
+@mixin box-decoration-break($param) {
+    -webkit-box-decoration-break: $param;
+       -moz-box-decoration-break: $param;
+        -ms-box-decoration-break: $param;
+         -o-box-decoration-break: $param;
+            box-decoration-break: $param;
+}
+@mixin transition($params...) {
+    transition: $params;
+    -webkit-transition: $params;
+    -moz-transition: $params;
+    -o-transition: $params;
+    -ms-transition: $params;
+}
+@mixin columns($count,$gutter) {
+    column-count: $count;
+    -moz-column-count: $count;
+    -webkit-column-count: $count;
+    -ms-column-count: $count;
+    column-gap: $gutter;
+    -moz-column-gap: $gutter;
+    -webkit-column-gap: $gutter;
+    -ms-column-gap: $gutter;
+}
+@mixin transform($param) {
+    transform: $param;
+    -webkit-transform: $param;
+    -ms-transform: $param;
+    -moz-transform: $param;
+}
+@mixin transform-origin($param) {
+    transform-origin: $param;
+    -webkit-transform-origin: $param;
+    -moz-transform-origin: $param;
+    -ms-transform-origin: $param;
+}
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin flex($values) {
+    -webkit-box-flex: $values;
+       -moz-box-flex: $values;
+        -webkit-flex: $values;
+            -ms-flex: $values;
+                flex: $values;
+}
+@mixin order($val) {
+    -webkit-box-ordinal-group: $val;
+       -moz-box-ordinal-group: $val;
+               -ms-flex-order: $val;
+                -webkit-order: $val;
+                        order: $val;
+}
+@mixin flexwrap($val) {
+    -webkit-flex-wrap: $val;
+        -ms-flex-wrap: $val;
+            flex-wrap: $val;
+}
+@mixin flexdir($val) {
+    -webkit-flex-direction: $val;
+        -ms-flex-direction: $val;
+            flex-direction: $val;
+}
+@mixin flexflow($val) {
+    -webkit-flex-flow: $val;
+            flex-flow: $val;
+}
+@mixin align-items($val) {
+            align-items: $val;
+    -webkit-align-items: $val;
+        flex-item-align: $val;
+    @if $val == flex-start {
+        flex-item-align: start;
+    }
+    @if $val == flex-end {
+        flex-item-align: end;
+    }
+}
+@mixin justify-content($val) {
+    -webkit-justify-content: $val;
+            justify-content: $val;
+    @if $val == space-between {
+        flex-pack: justify;
+    }
+    @if $val == space-around {
+        flex-pack: distribute;
+    }
+    @if $val == flex-start {
+        flex-pack: start;
+    }
+    @if $val == flex-end {
+        flex-pack: end;
+    }
+    @if $val == center {
+        flex-pack: center;
+    }
+}
+
+/* CSS Filters - unsupported by IE */
+@mixin filter($param) {
+    -webkit-filter: $param;
+            filter: $param;
+}
+
+/* Set the hyphenation - auto only works when lang attribute is set on <html> */
+@mixin hyphens($param) {
+            hyphens: $param;
+       -moz-hyphens: $param;
+        -ms-hyphens: $param;
+    -webkit-hyphens: $param;
+}
+
+/* Icon Font mixin */
+@mixin icon-font($color: black, $size: 1em, $float: none) {
+    &::before {
+        color: $color;
+        float: $float;
+        font: 100%/1 $iconfont {
+            size: $size;
+        }
+    }
+}
+
+/* Font size mixin */
+@mixin font-size($font-size: 16) {
+    font-size: $font-size + px;
+    font-size: ($font-size / 16) + rem;
+}
+
+/* Clearfix mixin */
+@mixin clearfix {
+    *zoom: 1;
+    &::before,
+    &::after {
+        content: " ";
+        display: table;
+    }
+
+    &::after {
+        clear: both;
+    }
+}
+
+/* Animation mixin */
+@mixin animation($param) {
+       -moz-animation: $param;
+    -webkit-animation: $param;
+         -o-animation: $param;
+            animation: $param;
+}
+
+/* Link mixin */
+@mixin link($link, $visited, $hover, $active) {
+    & {
+        color: $link;
+        &:visited {
+            color: $visited;
+        }
+        &:hover {
+            color: $hover;
+        }
+        &:active {
+            color: $active;
+        }
+    }
+}

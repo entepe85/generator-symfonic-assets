@@ -1,0 +1,33 @@
+/*------------------------------------*\
+    Global Variables
+\*------------------------------------*/
+
+// Font Styles
+$main-font-size:          14px;
+$main-font-size-large:    16px;
+$main-line-height:        1.5;
+$main-fonts:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$alt-fonts:         "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Layout
+<% if (useUIKit) { %>
+$screen-sm: $breakpoint-small;  // 480px
+$screen-md: $breakpoint-medium; // 768px
+$screen-lg: $breakpoint-large;  // 960px
+$screen-xl: $breakpoint-xlarge; // 1220px
+<%
+  } else {
+    if(!useBootstrap && !useBourbon) {
+%>
+$screen-sm: 480px;  // 480px
+$screen-md: 768px; // 768px
+$screen-lg: 960px;  // 960px
+$screen-xl: 1220px; // 1220px
+<%
+    }
+  }
+%>
+
+// Theme
+$primary-color:   blue;
+$main-color:      #333;
