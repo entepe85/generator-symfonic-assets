@@ -1,6 +1,6 @@
 {
   "name": "generator-symfonic-assets",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Generator for setting up asset generation for Symfony PHP projects.",
   "homepage": "",
   "author": {
