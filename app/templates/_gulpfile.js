@@ -27,7 +27,7 @@ let paths = {
         },
         js: {
             libs: {
-                src: [<% if (useUIKit || useBootstrap || useJQuery) { %>'bower/jquery/dist/jquery.min.js', <% } %>'web-src/js/libs/*.js'],
+                src: [<% if (useUIKit || useBootstrap || useJQuery) { %>'bower/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'bower/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'bower/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
                 dist: 'web-src/js/dist'
             },
             src: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
