@@ -1,4 +1,4 @@
-# generator-symfonic-assets [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-symfonic-assets [![NPM version][npm-image]][npm-url]
 > Generator for setting up asset generation for Symfony PHP projects.
 
 ## Installation
