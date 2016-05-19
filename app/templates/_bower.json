@@ -1,11 +1,11 @@
 {
-  "name": "<%= projectName %>",
+  "name": "symfonic-assets",
   "version": "1.0.0",
   "authors": [
     "bdrops GmbH (info@bdrops.de)"
   ],
   "description": "Symfony asset generation with Gulp, Babel, BrowserSync",
-  "main": "web/css/style.css",
+  "main": "web/css/app.css",
   "keywords": [
     "jQuery",
     "UIKit",
@@ -17,8 +17,8 @@
   ],
   "license": "MIT",
   "dependencies": {<% if (useJQuery) { %>
-    "jquery": "latest"<% } %><% if (useUIKit) { %>,
-    "uikit": "latest"<% } %><% if (useBootstrap) { %>,
+    "jquery": "latest"<% } %><% if (useUIKit) { %>
+    "uikit": "latest"<% } %><% if (useBootstrap) { %>
     "bootstrap-sass": "3.3.5"
     <% } %>
   }
