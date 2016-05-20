@@ -19,7 +19,6 @@
     "postcss-flexbugs-fixes": "^2.0.0",
     "postcss-pxtorem": "^3.0.0",
     "postcss-short": "^1.4.0"<% if (useBourbon) { %>,
-    "eyeglass": "latest",
     "bourbon": "latest",
     "bourbon-neat": "latest"<% } %>
   }
