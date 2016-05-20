@@ -37,7 +37,10 @@ let paths = {
                 src: 'web-src/js/dist/*.js',
                 dist: 'web/js'
             }
-        }
+        }<% if (browserSync) { %>,
+        twig: {
+            watch: ['app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
+        }<% } %>
     },
     plugins = [
         autoprefixer({browsers: ['> 1%']}),
@@ -132,9 +135,20 @@ gulp.task('startup', () => {
     });
 });
 
+process.on('SIGINT', () => {
+    exec('bin/console server:stop', function (error, stdout, stderr) {
+        if (error) {
+            throw error;
+        }
+        console.log(stdout + stderr);
+        process.exit();
+    });
+});
+
 gulp.task('watch', ['scss'], () => {
     gulp.watch(paths.scss.watch, ['scss']);
     gulp.watch(paths.js.watch, ['jscombine']);
+    <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
 gulp.task('default', ['startup', <% if (browserSync) { %>'browser-sync',<% } %> 'fonts', 'adminfiles', 'scss', 'jslibs', 'jscombine', 'watch']);

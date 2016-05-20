@@ -1,6 +1,6 @@
 {
   "name": "generator-symfonic-assets",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Generator for setting up asset generation through Gulp with various framworks for Symfony PHP projects.",
   "homepage": "",
   "author": {
