@@ -52,7 +52,7 @@ module.exports = yeoman.Base.extend({
     {
       when: function (answers) {
         return answers && answers.whatFramework &&
-          answers.whatFramework.indexOf('none') !== -1;
+          (answers.whatFramework.indexOf('none') !== -1 || answers.whatFramework.indexOf('bourbon') !== -1);
       },
       type: 'confirm',
       name: 'useJQuery',
