@@ -62,7 +62,13 @@ const onError = err => {
 gulp.task('scss', () =>
     gulp.src(paths.scss.master)
         .pipe(sourcemaps.init())
-        .pipe(sass())
+        .pipe(sass(<% if (useBourbon) { %>
+            {
+                includePaths: [
+                    require('bourbon').includePaths,
+                    require('bourbon-neat').includePaths
+                ]
+            }<% } %>))
         .on('error', onError)
         .pipe(postcss(plugins))
         .pipe(sourcemaps.write('../sourcemaps', {
