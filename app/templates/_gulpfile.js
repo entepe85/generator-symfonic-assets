@@ -126,14 +126,23 @@ gulp.task('browser-sync', () => {
 });
 <% } %>
 
-gulp.task('startup', () => {
+gulp.task('startup', () => 
     exec('bin/console server:start', function (error, stdout, stderr) {
         if (error) {
             throw error;
         }
         console.log(stdout + stderr);
-    });
-});
+    }
+));
+
+gulp.task('assets', () => 
+    exec('bin/console assets:install --symlink', function (error, stdout, stderr) {
+        if (error) {
+            throw error;
+        }
+        console.log(stdout + stderr);
+    }
+));
 
 process.on('SIGINT', () => {
     exec('bin/console server:stop', function (error, stdout, stderr) {
@@ -151,4 +160,4 @@ gulp.task('watch', ['scss'], () => {
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
-gulp.task('default', ['startup', <% if (browserSync) { %>'browser-sync',<% } %> 'fonts', 'adminfiles', 'scss', 'jslibs', 'jscombine', 'watch']);
+gulp.task('default', ['startup', 'assets', <% if (browserSync) { %>'browser-sync',<% } %> 'fonts', 'adminfiles', 'scss', 'jslibs', 'jscombine', 'watch']);
