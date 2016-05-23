@@ -37,13 +37,16 @@ let paths = {
                 src: 'web-src/js/dist/*.js',
                 dist: 'web/js'
             }
+        }
+        fonts: {
+            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, '/bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, '/bower/uikit/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
             watch: ['app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
         }<% } %>
     },
     plugins = [
-        autoprefixer({browsers: ['> 1%']}),
+        autoprefixer({browsers: ['> 5%', 'last 2 versions', 'Firefox ESR']}),
         calc,
         focus,
         zindex,
@@ -80,7 +83,7 @@ gulp.task('scss', () =>
 );
 
 gulp.task('fonts', () =>
-    gulp.src('web-src/fonts/*')
+    gulp.src(paths.fonts.src)
         .pipe(gulp.dest('web/fonts/'))
         .pipe(notify('Fonts copied over, sir.'))
 );
@@ -104,7 +107,7 @@ gulp.task('jslibs', () =>
 
 gulp.task('jsconcat', () =>
     gulp.src(paths.js.src)
-        <% if (useES6) { %>.pipe(babel({ 
+        <% if (useES6) { %>.pipe(babel({
             presets: ['es2015']
         }))<% } %>
         .pipe(concat('script.all.js'))
@@ -132,7 +135,7 @@ gulp.task('browser-sync', () => {
 });
 <% } %>
 
-gulp.task('startup', () => 
+gulp.task('startup', () =>
     exec('bin/console server:start', function (error, stdout, stderr) {
         if (error) {
             throw error;
@@ -141,7 +144,7 @@ gulp.task('startup', () =>
     }
 ));
 
-gulp.task('assets', () => 
+gulp.task('assets', () =>
     exec('bin/console assets:install --symlink', function (error, stdout, stderr) {
         if (error) {
             throw error;
