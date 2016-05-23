@@ -10,7 +10,7 @@ module.exports = yeoman.Base.extend({
     this._ = _;
     yeoman.Base.apply(this, arguments);
   },
-  
+
   initializing: function () {
     this.pkg = require('../package.json');
   },
@@ -72,38 +72,46 @@ module.exports = yeoman.Base.extend({
       value: 'useBrowserSync',
       message: 'Do you want to use BrowserSync for live reloading? (recommended)',
       default: true
+    },
+    {
+        type: 'confirm',
+        name: 'imageMin',
+        value: 'useImagemin',
+        message: 'Do you want to use gulp-imagemin for image optimizations?',
+        default: true
     }];
 
     return this.prompt(prompts).then(function (props) {
       // To access props later use this.props.someAnswer;
       this.projectName = props.projectName;
       this.browserSync = props.browserSync;
+      this.useImagemin = props.imageMin;
       this.useES6 = props.es6;
       this.useJQuery = props.useJQuery;
       useFramework = props.whatFramework;
-      
+
       this.useUIKit = false;
       this.useBootstrap = false;
       this.useBourbon = false;
-      
+
       function wantsFramework(fw) {
         return useFramework && useFramework.indexOf(fw) !== -1;
       }
-      
+
       this.useUIKit = wantsFramework('uikit');
       this.useBootstrap = wantsFramework('bootstrap');
       this.useBourbon = wantsFramework('bourbon');
-      
+
       done();
     }.bind(this));
   },
 
   writing: {
-    
+
     packageJSON: function () {
       this.template('_package.json', 'package.json');
     },
-    
+
     app: function () {
       var context = {
           useES6:         this.useES6,
@@ -112,11 +120,12 @@ module.exports = yeoman.Base.extend({
           useBourbon:     this.useBourbon,
           useJQuery:      this.useJQuery,
           browserSync:    this.browserSync,
+          useImagemin:    this.useImagemin,
           projectName:    this.projectName
       };
       this.template('_bower.json', 'bower.json', context);
     },
-    
+
     projectfiles: function () {
       var context = {
           siteName:       this.projectName,
@@ -126,7 +135,8 @@ module.exports = yeoman.Base.extend({
           useBourbon:     this.useBourbon,
           useJQuery:      this.useJQuery,
           projectName:    this.projectName,
-          browserSync:    this.browserSync
+          browserSync:    this.browserSync,
+          useImagemin:    this.useImagemin
       };
 
       this.fs.copy(
@@ -148,6 +158,8 @@ module.exports = yeoman.Base.extend({
 
       this.mkdir('web-src');
 
+      this.mkdir('web-src/images');
+
       if (this.useES6) {
         this.directory(
           this.templatePath('_src/_es6'),
@@ -160,7 +172,7 @@ module.exports = yeoman.Base.extend({
       this.template('_src/_scss/_app.scss', 'web-src/scss/app.scss', context);
       this.template('_src/_scss/_settings/_variables.scss', 'web-src/scss/_settings/_variables.scss', context);
       this.template('_src/_scss/_settings/_mixins.scss', 'web-src/scss/_settings/_mixins.scss', context);
-      
+
       this.directory(
         this.templatePath('_src/_scss/_base'),
         this.destinationPath('web-src/scss/_base')
@@ -175,17 +187,17 @@ module.exports = yeoman.Base.extend({
         this.templatePath('_src/_js'),
         this.destinationPath('web-src/js')
       );
-      
+
       this.mkdir('web-src/js/libs');
       this.mkdir('web-src/js/dist');
-      
+
       this.directory(
         this.templatePath('_src/_css'),
         this.destinationPath('web-src/css')
       );
 
     }
-    
+
   },
 
   install: function () {
@@ -195,7 +207,7 @@ module.exports = yeoman.Base.extend({
     });
 
 
-    this.on('end', function () {   
+    this.on('end', function () {
       this.log(yosay(
         'Yeah! You\'re all set and done!' +
         ' Now simply run ' + chalk.green.italic('gulp') + ' and start coding!'

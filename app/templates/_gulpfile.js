@@ -9,7 +9,8 @@ let gulp = require('gulp'),
     autoprefixer = require('autoprefixer'),<% if (browserSync) { %>
     browserSync = require('browser-sync').create(),<% } %>
     exec = require('child_process').exec,<% if (useES6) { %>
-    babel = require('gulp-babel'),<% } %>
+    babel = require('gulp-babel'),<% } %><% if (useImagemin) { %>
+    imagemin = require('gulp-imagemin'),<% } %>
     postcss = require('gulp-postcss'),
     cssnano = require('cssnano'),
     zindex = require('postcss-zindex'),
@@ -37,13 +38,18 @@ let paths = {
                 src: 'web-src/js/dist/*.js',
                 dist: 'web/js'
             }
-        }
+        },
         fonts: {
             src: ['web-src/fonts/*'<% if (useBootstrap) { %>, '/bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, '/bower/uikit/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
             watch: ['app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
-        }<% } %>
+        }<% } %><% if (useImagemin) { %>,
+        images: {
+            src: ['web-src/images/**/*', 'web-src/images/*'],
+            dist: 'web/images'
+        }
+        <% } %>
     },
     plugins = [
         autoprefixer({browsers: ['> 5%', 'last 2 versions', 'Firefox ESR']}),
@@ -93,6 +99,14 @@ gulp.task('adminfiles', () =>
         .pipe(gulp.dest('web/admin/'))
         .pipe(notify('Admin files copied over, sir.'))
 );
+
+<% if (useImagemin) { %>
+gulp.task('images', () =>
+    gulp.src(paths.images.src)
+        .pipe(imagemin())
+        .pipe(gulp.dest(paths.images.dist))
+);
+<% } %>
 
 gulp.task('jslibs', () =>
     gulp.src(paths.js.libs.src)
@@ -169,4 +183,4 @@ gulp.task('watch', ['scss'], () => {
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
-gulp.task('default', ['startup', 'assets', <% if (browserSync) { %>'browser-sync',<% } %> 'fonts', 'adminfiles', 'scss', 'jslibs', 'jscombine', 'watch']);
+gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'jslibs', 'jscombine', 'watch']);
