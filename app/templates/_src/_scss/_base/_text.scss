@@ -9,6 +9,16 @@
  *
  */
 
+ /*------------------------------------*\
+    Base font size
+ \*------------------------------------*/
+html, body {
+    color: $main-color;
+    font-family: $main-fonts;
+    font-size: $font-size-base;
+    font-weight: $font-weight-base;
+}
+
 
 /*------------------------------------*\
     Links
