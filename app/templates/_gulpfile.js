@@ -119,7 +119,7 @@ gulp.task('jslibs', () =>
         .pipe(notify('JS libs combined'))
 );
 
-gulp.task('jsconcat', () =>
+gulp.task('jsconcat', ['jslibs'], () =>
     gulp.src(paths.js.src)
         <% if (useES6) { %>.pipe(babel({
             presets: ['es2015']
@@ -183,4 +183,4 @@ gulp.task('watch', ['scss'], () => {
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
-gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'jslibs', 'jscombine', 'watch']);
+gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'jscombine', 'watch']);
