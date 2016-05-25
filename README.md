@@ -3,7 +3,8 @@
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-symfonic-assets using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First install [node.js](https://nodejs.org/), [Gulp](http://gulpjs.com/) and [Bower](http://bower.io/) if you haven't already.
+Then install [Yeoman](http://yeoman.io) and generator-symfonic-assets using [npm](https://www.npmjs.com/).
 
 ```bash
 npm install -g yo
