@@ -40,7 +40,7 @@ let paths = {
             }
         },
         fonts: {
-            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, '/bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, '/bower/uikit/fonts/*'<% } %>]
+            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'bower/uikit/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
             watch: ['app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
