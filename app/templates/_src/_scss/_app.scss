@@ -31,10 +31,6 @@
 
 @import "../css/normalize.css";
 
-// Variables & Mixins
-@import "_settings/variables";
-@import "_settings/mixins";
-
 <% if (useUIKit) { %>
 // Framework Integration
 $icon-font-path:    "../fonts/";
@@ -55,6 +51,10 @@ $icon-font-path: "../fonts/";
 @import "bourbon";
 @import "neat";
 <% } %>
+
+// Variables & Mixins
+@import "_settings/variables";
+@import "_settings/mixins";
 
 // Base styling
 @import "_base/base";

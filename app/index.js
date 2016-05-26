@@ -3,11 +3,13 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var _ = require('lodash');
+var mkdirp = require('mkdirp');
 var useFramework;
 
 module.exports = yeoman.Base.extend({
   constructor: function () {
     this._ = _;
+    this.mkdirp = mkdirp;
     yeoman.Base.apply(this, arguments);
   },
 
@@ -68,6 +70,13 @@ module.exports = yeoman.Base.extend({
     },
     {
       type: 'confirm',
+      name: 'postCSS',
+      value: 'usePostCSS',
+      message: 'Do you want to use PostCSS (w/ calc, zindex, short, pxtorem, cssnano)?',
+      default: true
+    },
+    {
+      type: 'confirm',
       name: 'browserSync',
       value: 'useBrowserSync',
       message: 'Do you want to use BrowserSync for live reloading? (recommended)',
@@ -88,6 +97,7 @@ module.exports = yeoman.Base.extend({
       this.useImagemin = props.imageMin;
       this.useES6 = props.es6;
       this.useJQuery = props.useJQuery;
+      this.usePostCSS = props.postCSS;
       useFramework = props.whatFramework;
 
       this.useUIKit = false;
@@ -119,6 +129,7 @@ module.exports = yeoman.Base.extend({
           useBootstrap:   this.useBootstrap,
           useBourbon:     this.useBourbon,
           useJQuery:      this.useJQuery,
+          usePostCSS:     this.usePostCSS,
           browserSync:    this.browserSync,
           useImagemin:    this.useImagemin,
           projectName:    this.projectName
@@ -134,6 +145,7 @@ module.exports = yeoman.Base.extend({
           useBootstrap:   this.useBootstrap,
           useBourbon:     this.useBourbon,
           useJQuery:      this.useJQuery,
+          usePostCSS:     this.usePostCSS,
           projectName:    this.projectName,
           browserSync:    this.browserSync,
           useImagemin:    this.useImagemin
@@ -156,9 +168,9 @@ module.exports = yeoman.Base.extend({
 
 
 
-      this.mkdir('web-src');
+      this.mkdirp('web-src');
 
-      this.mkdir('web-src/images');
+      this.mkdirp('web-src/images');
 
       if (this.useES6) {
         this.directory(
@@ -167,7 +179,7 @@ module.exports = yeoman.Base.extend({
         );
       }
 
-      this.mkdir('web-src/scss');
+      this.mkdirp('web-src/scss');
 
       this.template('_src/_scss/_app.scss', 'web-src/scss/app.scss', context);
       this.template('_src/_scss/_settings/_variables.scss', 'web-src/scss/_settings/_variables.scss', context);
@@ -188,8 +200,8 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('web-src/js')
       );
 
-      this.mkdir('web-src/js/libs');
-      this.mkdir('web-src/js/dist');
+      this.mkdirp('web-src/js/libs');
+      this.mkdirp('web-src/js/dist');
 
       this.directory(
         this.templatePath('_src/_css'),

@@ -9,6 +9,9 @@ $main-line-height:        1.5;
 $main-fonts:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 $alt-fonts:         "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+$font-size-base: $main-font-size;
+$font-weight-base: 400;
+
 // Layout
 <% if (useUIKit) { %>
 $screen-sm: $breakpoint-small;  // 480px

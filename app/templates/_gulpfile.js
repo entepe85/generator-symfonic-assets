@@ -5,13 +5,13 @@ let gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     notify = require('gulp-notify'),
     concat = require('gulp-concat'),
-    sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('autoprefixer'),<% if (browserSync) { %>
+    sourcemaps = require('gulp-sourcemaps'),<% if (browserSync) { %>
     browserSync = require('browser-sync').create(),<% } %>
     exec = require('child_process').exec,<% if (useES6) { %>
     babel = require('gulp-babel'),<% } %><% if (useImagemin) { %>
     imagemin = require('gulp-imagemin'),<% } %>
-    postcss = require('gulp-postcss'),
+    <% if (usePostCSS) { %>postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
     zindex = require('postcss-zindex'),
     focus = require('postcss-focus'),
@@ -19,6 +19,10 @@ let gulp = require('gulp'),
     flexbugsFixes = require('postcss-flexbugs-fixes'),
     pxToRem = require('postcss-pxtorem'),
     short = require('postcss-short');
+    <% } else { %>
+    prefixer = require('gulp-autoprefixer'),
+    cleanCSS = require('gulp-clean-css');
+    <% } %>
 
 let paths = {
         scss: {
@@ -50,7 +54,7 @@ let paths = {
             dist: 'web/images'
         }
         <% } %>
-    },
+    }<% if (usePostCSS) { %>,
     plugins = [
         autoprefixer({browsers: ['> 5%', 'last 2 versions', 'Firefox ESR']}),
         calc,
@@ -60,7 +64,7 @@ let paths = {
         pxToRem,
         short,
         cssnano
-    ];
+    ];<% } else { %>;<% } %>
 
 
 const onError = err => {
@@ -79,7 +83,12 @@ gulp.task('scss', () =>
                 ]
             }<% } %>))
         .on('error', onError)
-        .pipe(postcss(plugins))
+        <% if (usePostCSS) { %>.pipe(postcss(plugins))<% } else { %>
+        .pipe(prefixer({
+          cascade: false,
+          browsers: ['last 2 versions', 'Firefox ESR']
+        }))
+        .pipe(cleanCSS())<% } %>
         .pipe(sourcemaps.write('../sourcemaps', {
             includeContent: false // Otherwise all the CSS would be included
         }))
