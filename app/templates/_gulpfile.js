@@ -132,7 +132,8 @@ gulp.task('jsconcat', ['jslibs'], () =>
     gulp.src(paths.js.src)
         <% if (useES6) { %>.pipe(babel({
             presets: ['es2015']
-        }))<% } %>
+        }))
+        .on('error', onError)<% } %>
         .pipe(concat('script.all.js'))
         .pipe(uglify({
             mangle: true
