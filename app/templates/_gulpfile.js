@@ -65,7 +65,7 @@ let paths = {
 
 const onError = err => {
     console.log(err);
-    this.emit('end');
+    process.emit('end');
 };
 
 gulp.task('scss', () =>
@@ -168,6 +168,16 @@ gulp.task('assets', () =>
 ));
 
 process.on('SIGINT', () => {
+    exec('bin/console server:stop', function (error, stdout, stderr) {
+        if (error) {
+            throw error;
+        }
+        console.log(stdout + stderr);
+        process.exit();
+    });
+});
+
+process.on('end', () => {
     exec('bin/console server:stop', function (error, stdout, stderr) {
         if (error) {
             throw error;
