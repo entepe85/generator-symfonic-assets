@@ -47,7 +47,7 @@ let paths = {
             src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'bower/uikit/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
-            watch: ['app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
+            watch: ['src/AppBundle/Resources/views/**/*.html.twig', 'app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
         }<% } %><% if (useImagemin) { %>,
         images: {
             src: ['web-src/images/**/*', 'web-src/images/*'],
