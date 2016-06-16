@@ -16,6 +16,7 @@ let gulp = require('gulp'),
     zindex = require('postcss-zindex'),
     focus = require('postcss-focus'),
     calc = require('postcss-calc'),
+    cache = require('gulp-cache'),
     flexbugsFixes = require('postcss-flexbugs-fixes'),
     pxToRem = require('postcss-pxtorem'),
     short = require('postcss-short');
@@ -112,17 +113,21 @@ gulp.task('adminfiles', () =>
 <% if (useImagemin) { %>
 gulp.task('images', () =>
     gulp.src(paths.images.src)
-        .pipe(imagemin())
+        .pipe(cache(imagemin()))
         .pipe(gulp.dest(paths.images.dist))
 );
 <% } %>
 
+gulp.task('clear', function (done) {
+    return cache.clearAll(done);
+});
+
 gulp.task('jslibs', () =>
     gulp.src(paths.js.libs.src)
         .pipe(concat('libs.all.js'))
-        .pipe(uglify({
+        .pipe(cache(uglify({
             mangle: true
-        }))
+        })))
         .on('error', onError)
         .pipe(gulp.dest(paths.js.libs.dist))
         .pipe(notify('JS libs combined'))
