@@ -2,6 +2,7 @@
 /*global require, console */
 let gulp = require('gulp'),
     sass = require('gulp-sass'),
+    sassLint = require('gulp-sass-lint'),
     uglify = require('gulp-uglify'),
     notify = require('gulp-notify'),
     concat = require('gulp-concat'),
@@ -29,7 +30,8 @@ let paths = {
         scss: {
             master: 'web-src/scss/app.scss',
             watch: 'web-src/scss/**/*.scss',
-            dist: 'web/css'
+            dist: 'web/css',
+            lint: ['web-src/scss/**/*.scss', '!web-src/scss/app.scss', '!web-src/scss/_css/*.scss', '!web-src/scss/_components/fontawesome/**/*.scss', '!web-src/scss/_components/fontawesome/*.scss', '!web-src/scss/_settings/_mixins.scss']
         },
         js: {
             libs: {
@@ -96,6 +98,13 @@ gulp.task('scss', () =>
         .pipe(gulp.dest(paths.scss.dist))
         .pipe(notify('SCSS compiled and minified'))
         <% if (browserSync) { %>.pipe(browserSync.stream({match: '**/*.css'}))<% } %>
+);
+
+gulp.task('sass-lint', () =>
+    gulp.src(paths.scss.lint)
+        .pipe(sassLint())
+        .pipe(sassLint.format())
+        .pipe(sassLint.failOnError())
 );
 
 gulp.task('fonts', () =>

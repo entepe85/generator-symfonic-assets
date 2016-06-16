@@ -1,86 +1,78 @@
-/**
- * -----------------------
- * Text Styles
- * -----------------------
- * last Update: 00.00.2000
- * -----------------------
- *
- *
- *
- */
-
- /*------------------------------------*\
-    Base font size
- \*------------------------------------*/
-html, body {
+// Base font styles
+html,
+body {
     color: $main-color;
     font-family: $main-fonts;
     font-size: $font-size-base;
     font-weight: $font-weight-base;
+    line-height: $line-height-base;
 }
 
-
-/*------------------------------------*\
-    Links
-\*------------------------------------*/
-
+// Links
 a {
   color: $primary-color;
 
-  &:hover,
-  &:focus,
-  &:active {
-    color: darken($primary-color, 10%);
-  }
+    &:hover,
+    &:focus,
+    &:active {
+        color: darken($primary-color, 10%);
+    }
+
+    &.link--white {
+        color: $white;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: darken($white, 10%);
+        }
+    }
 }
 
 
 
 
 
-/*------------------------------------*\
-    Headlines
-\*------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
 
-}
-
-h1 {
-
-}
-
-h2 {
-
-}
-
-h3 {
-
-}
-
-h4 {
-
-}
-
-h5 {
-
-}
-
+// Headlines
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
+    font-weight: $font-weight-bold;
+}
 
+h1,
+h2,
+h3 {
+    margin-bottom: .625em;
+    margin-top: 0;
+}
+
+* + h1,
+* + h2,
+* + h3,
+* + h4 {
+    margin-top: 1.33em;
 }
 
 
+// Misc
 
-
-
-/*------------------------------------*\
-    Misc
-\*------------------------------------*/
 em {
   color: inherit;
 }
 
 p {
   margin: 0;
-  padding: 0 0 2em;
+}
+
+* + p {
+    margin-top: .825em;
+}
+
+strong {
+    font-weight: $font-weight-bold;
 }
