@@ -21,6 +21,8 @@ yo symfonic-assets
 
 This generator is made for the sole purpose of generating front end assets for Symfony PHP framework projects, so it's mandatory to have a fresh Symfony project ready
 
+After installing all dependencies please run `gulp jslibs` first to concatenate and compress all the JS libraries. Feel free to run this command again any time you add a new library (either through Bower or manually).
+
 ## Getting To Know Yeoman
 
  * Yeoman has a heart of gold.

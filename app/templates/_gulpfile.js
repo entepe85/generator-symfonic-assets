@@ -133,7 +133,7 @@ gulp.task('jslibs', () =>
         .pipe(notify('JS libs combined'))
 );
 
-gulp.task('jsconcat', ['jslibs'], () =>
+gulp.task('jsconcat', () =>
     gulp.src(paths.js.src)
         <% if (useES6) { %>.pipe(babel({
             presets: ['es2015']

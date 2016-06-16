@@ -65,8 +65,8 @@ module.exports = yeoman.Base.extend({
         type: 'confirm',
         name: 'es6',
         value: 'useES6',
-        message: 'Do you need Babel for EcmaScript2015?',
-        default: false
+        message: 'Do you need Babel for EcmaScript2015? (recommended)',
+        default: true
       },
       {
         type: 'confirm',
@@ -226,9 +226,8 @@ module.exports = yeoman.Base.extend({
     this.on('end', function () {
       this.log(yosay(
         'Yeah! You\'re all set and done!' +
-        ' Now simply run ' + chalk.green.italic('gulp') + ' and start coding!'
+        ' Now simply run ' + chalk.green.italic('gulp jslibs') + ' first, then ' + chalk.green.italic('gulp') + ' and start coding!'
       ));
-      this.spawnCommand('gulp');
     });
 
   }
