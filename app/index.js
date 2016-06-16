@@ -28,67 +28,67 @@ module.exports = yeoman.Base.extend({
       name: 'projectName',
       message: 'What is you project\'s name?'
     },
-    {
-      type: 'list',
-      name: 'whatFramework',
-      message: 'Would you like to use a framework?',
-      choices: [
-        {
-          name: 'UI Kit (recommended)',
-          value: 'uikit'
-        },
-        {
-          name: 'Bootstrap',
-          value: 'bootstrap'
-        },
-        {
-          name: 'Bourbon/Neat',
-          value: 'bourbon'
-        },
-        {
-          name: 'None',
-          value: 'none'
-        }
-      ]
-    },
-    {
-      when: function (answers) {
-        return answers && answers.whatFramework &&
-          (answers.whatFramework.indexOf('none') !== -1 || answers.whatFramework.indexOf('bourbon') !== -1);
+      {
+        type: 'list',
+        name: 'whatFramework',
+        message: 'Would you like to use a framework?',
+        choices: [
+          {
+            name: 'UI Kit (recommended)',
+            value: 'uikit'
+          },
+          {
+            name: 'Bootstrap',
+            value: 'bootstrap'
+          },
+          {
+            name: 'Bourbon/Neat',
+            value: 'bourbon'
+          },
+          {
+            name: 'None',
+            value: 'none'
+          }
+        ]
       },
-      type: 'confirm',
-      name: 'useJQuery',
-      message: 'Do you need jQuery?',
-      default: false
-    },
-    {
-      type: 'confirm',
-      name: 'es6',
-      value: 'useES6',
-      message: 'Do you need Babel for EcmaScript2015?',
-      default: false
-    },
-    {
-      type: 'confirm',
-      name: 'postCSS',
-      value: 'usePostCSS',
-      message: 'Do you want to use PostCSS (w/ calc, zindex, short, pxtorem, cssnano)?',
-      default: true
-    },
-    {
-      type: 'confirm',
-      name: 'browserSync',
-      value: 'useBrowserSync',
-      message: 'Do you want to use BrowserSync for live reloading? (recommended)',
-      default: true
-    },
-    {
+      {
+        when: function (answers) {
+          return answers && answers.whatFramework &&
+          (answers.whatFramework.indexOf('none') !== -1 || answers.whatFramework.indexOf('bourbon') !== -1);
+        },
+        type: 'confirm',
+        name: 'useJQuery',
+        message: 'Do you need jQuery?',
+        default: false
+      },
+      {
+        type: 'confirm',
+        name: 'es6',
+        value: 'useES6',
+        message: 'Do you need Babel for EcmaScript2015?',
+        default: false
+      },
+      {
+        type: 'confirm',
+        name: 'postCSS',
+        value: 'usePostCSS',
+        message: 'Do you want to use PostCSS (w/ calc, zindex, short, pxtorem, cssnano)?',
+        default: true
+      },
+      {
+        type: 'confirm',
+        name: 'browserSync',
+        value: 'useBrowserSync',
+        message: 'Do you want to use BrowserSync for live reloading? (recommended)',
+        default: true
+      },
+      {
         type: 'confirm',
         name: 'imageMin',
         value: 'useImagemin',
         message: 'Do you want to use gulp-imagemin for image optimizations?',
         default: true
-    }];
+      }];
 
     return this.prompt(prompts).then(function (props) {
       // To access props later use this.props.someAnswer;
@@ -124,31 +124,31 @@ module.exports = yeoman.Base.extend({
 
     app: function () {
       var context = {
-          useES6:         this.useES6,
-          useUIKit:       this.useUIKit,
-          useBootstrap:   this.useBootstrap,
-          useBourbon:     this.useBourbon,
-          useJQuery:      this.useJQuery,
-          usePostCSS:     this.usePostCSS,
-          browserSync:    this.browserSync,
-          useImagemin:    this.useImagemin,
-          projectName:    this.projectName
+        useES6:         this.useES6,
+        useUIKit:       this.useUIKit,
+        useBootstrap:   this.useBootstrap,
+        useBourbon:     this.useBourbon,
+        useJQuery:      this.useJQuery,
+        usePostCSS:     this.usePostCSS,
+        browserSync:    this.browserSync,
+        useImagemin:    this.useImagemin,
+        projectName:    this.projectName
       };
       this.template('_bower.json', 'bower.json', context);
     },
 
     projectfiles: function () {
       var context = {
-          siteName:       this.projectName,
-          useES6:         this.useES6,
-          useUIKit:       this.useUIKit,
-          useBootstrap:   this.useBootstrap,
-          useBourbon:     this.useBourbon,
-          useJQuery:      this.useJQuery,
-          usePostCSS:     this.usePostCSS,
-          projectName:    this.projectName,
-          browserSync:    this.browserSync,
-          useImagemin:    this.useImagemin
+        siteName:       this.projectName,
+        useES6:         this.useES6,
+        useUIKit:       this.useUIKit,
+        useBootstrap:   this.useBootstrap,
+        useBourbon:     this.useBourbon,
+        useJQuery:      this.useJQuery,
+        usePostCSS:     this.usePostCSS,
+        projectName:    this.projectName,
+        browserSync:    this.browserSync,
+        useImagemin:    this.useImagemin
       };
 
       this.fs.copy(
@@ -162,6 +162,10 @@ module.exports = yeoman.Base.extend({
       this.fs.copy(
         this.templatePath('bowerrc'),
         this.destinationPath('.bowerrc')
+      );
+      this.fs.copy(
+        this.templatePath('sass-lint.yml'),
+        this.destinationPath('.sass-lint.yml')
       );
 
       this.template('_gulpfile.js', 'gulpfile.js', context);
