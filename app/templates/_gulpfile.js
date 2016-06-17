@@ -70,10 +70,10 @@ let paths = {
     ];<% } else { %>;<% } %>
 
 
-const onError = err => {
+function onError (err) {
     console.log(err);
-    process.emit('end');
-};
+    this.emit('end');
+}
 
 gulp.task('scss', () =>
     gulp.src(paths.scss.master)
