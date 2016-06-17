@@ -213,6 +213,13 @@ process.on('end', () => {
 
 gulp.task('watch', ['scss'], () => {
     gulp.watch(paths.scss.watch, ['scss']);
+    gulp.watch(paths.scss.watch, file => {
+        gulp.src(file.path)
+            .on('error', onError)
+            .pipe(sassLint())
+            .pipe(sassLint.format())
+            .pipe(sassLint.failOnError())
+    });
     gulp.watch(paths.js.watch, ['jscombine']);
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
