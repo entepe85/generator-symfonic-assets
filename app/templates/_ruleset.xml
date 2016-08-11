@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="bdrops PHPMD ruleset"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                     http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="
+                     http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        bdrops PHPMD ruleset.
+    </description>
+
+    <!-- Import the entire unused code rule set -->
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedFormalParameter" />
+    </rule>
+
+    <!-- Import the entire clean code rule set -->
+    <rule ref="rulesets/cleancode.xml" />
+
+    <!-- Import the entire controversial rule set -->
+    <rule ref="rulesets/controversial.xml" />
+
+    <!-- Import the entire design rule set -->
+    <!-- <rule ref="rulesets/design.xml" /> -->
+
+    <!-- Customize coupling rule -->
+    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="minimum" value="20" />
+        </properties>
+    </rule>
+
+    <!-- Customize method length rule -->
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="ignore-whitespace" value="true" />
+            <property name="minimum" value="200" />
+        </properties>
+    </rule>
+
+    <!-- Import entire naming rule set and exclude rules -->
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable" />
+        <exclude name="BooleanGetMethodName" />
+    </rule>
+</ruleset>

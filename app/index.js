@@ -160,12 +160,20 @@ module.exports = yeoman.Base.extend({
         this.destinationPath('.jshintrc')
       );
       this.fs.copy(
+        this.templatePath('eslintrc.json'),
+        this.destinationPath('.eslintrc.json')
+      );
+      this.fs.copy(
         this.templatePath('bowerrc'),
         this.destinationPath('.bowerrc')
       );
       this.fs.copy(
         this.templatePath('sass-lint.yml'),
         this.destinationPath('.sass-lint.yml')
+      );
+      this.fs.copy(
+        this.templatePath('_ruleset.xml'),
+        this.destinationPath('ruleset.xml')
       );
 
       this.template('_gulpfile.js', 'gulpfile.js', context);

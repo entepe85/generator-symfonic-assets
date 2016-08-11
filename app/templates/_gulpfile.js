@@ -174,7 +174,7 @@ gulp.task('browser-sync', () => {
 <% } %>
 
 gulp.task('startup', () =>
-    exec('bin/console server:start', function (error, stdout, stderr) {
+    exec('bin/console server:start 0.0.0.0:8000', function (error, stdout, stderr) {
         if (error) {
             throw error;
         }
@@ -192,7 +192,7 @@ gulp.task('assets', () =>
 ));
 
 process.on('SIGINT', () => {
-    exec('bin/console server:stop', function (error, stdout, stderr) {
+    exec('bin/console server:stop 0.0.0.0:8000', function (error, stdout, stderr) {
         if (error) {
             throw error;
         }
@@ -202,7 +202,7 @@ process.on('SIGINT', () => {
 });
 
 process.on('end', () => {
-    exec('bin/console server:stop', function (error, stdout, stderr) {
+    exec('bin/console server:stop 0.0.0.0:8000', function (error, stdout, stderr) {
         if (error) {
             throw error;
         }
