@@ -20,6 +20,7 @@ let gulp = require('gulp'),
     cache = require('gulp-cache'),
     flexbugsFixes = require('postcss-flexbugs-fixes'),
     pxToRem = require('postcss-pxtorem'),
+    atImport = require('postcss-import'),
     short = require('postcss-short');
     <% } else { %>
     prefixer = require('gulp-autoprefixer'),
@@ -59,6 +60,7 @@ let paths = {
         <% } %>
     }<% if (usePostCSS) { %>,
     plugins = [
+        atImport,
         autoprefixer({browsers: ['> 5%', 'last 2 versions', 'Firefox ESR']}),
         calc,
         focus,

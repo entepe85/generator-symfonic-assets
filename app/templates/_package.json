@@ -22,6 +22,7 @@
     "postcss-zindex": "^2.1.1",
     "postcss-flexbugs-fixes": "^2.0.0",
     "postcss-pxtorem": "^3.0.0",
+    "postcss-import": "latest",
     "postcss-short": "^1.4.0",<% } %>
     <% if (useBourbon) { %>"bourbon": "latest",
     "bourbon-neat": "latest",<% } %>
