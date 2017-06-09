@@ -70,6 +70,13 @@ module.exports = yeoman.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'webpack',
+        value: 'useWebpack',
+        message: 'Use Webpack for JS compilation? (recommended)',
+        default: true
+      },
+      {
+        type: 'confirm',
         name: 'postCSS',
         value: 'usePostCSS',
         message: 'Do you want to use PostCSS (w/ calc, zindex, short, pxtorem, cssnano)?',
@@ -96,6 +103,7 @@ module.exports = yeoman.Base.extend({
       this.browserSync = props.browserSync;
       this.useImagemin = props.imageMin;
       this.useES6 = props.es6;
+      this.useWebpack = props.webpack;
       this.useJQuery = props.useJQuery;
       this.usePostCSS = props.postCSS;
       useFramework = props.whatFramework;
@@ -125,6 +133,7 @@ module.exports = yeoman.Base.extend({
     app: function () {
       var context = {
         useES6:         this.useES6,
+        useWebpack:     this.useWebpack,
         useUIKit:       this.useUIKit,
         useBootstrap:   this.useBootstrap,
         useBourbon:     this.useBourbon,
@@ -141,6 +150,7 @@ module.exports = yeoman.Base.extend({
       var context = {
         siteName:       this.projectName,
         useES6:         this.useES6,
+        useWebpack:     this.useWebpack,
         useUIKit:       this.useUIKit,
         useBootstrap:   this.useBootstrap,
         useBourbon:     this.useBourbon,
@@ -189,6 +199,10 @@ module.exports = yeoman.Base.extend({
           this.templatePath('_src/_es6'),
           this.destinationPath('web-src/es6')
         );
+      }
+
+      if (this.useWebpack) {
+        this.template('_webpack.config.js', 'webpack.config.js', context);
       }
 
       this.mkdirp('web-src/scss');

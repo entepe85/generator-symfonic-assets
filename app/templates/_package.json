@@ -26,6 +26,11 @@
     "postcss-short": "^1.4.0",<% } %>
     <% if (useBourbon) { %>"bourbon": "latest",
     "bourbon-neat": "latest",<% } %>
+    <% if (useWebpack) { %>"babel-core": "latest",
+    "babel-loader": "latest",
+    "gulp-clean": "latest",
+    "webpack": "latest",
+    "webpack-stream": "latest",<% } %>
     "gulp-util": "^3.0.7"
   }
 }

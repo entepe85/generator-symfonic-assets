@@ -11,7 +11,11 @@ let gulp = require('gulp'),
     browserSync = require('browser-sync').create(),<% } %>
     exec = require('child_process').exec,<% if (useES6) { %>
     babel = require('gulp-babel'),<% } %><% if (useImagemin) { %>
-    imagemin = require('gulp-imagemin'),<% } %>
+    imagemin = require('gulp-imagemin'),<% } %><% if (useWebpack) { %>
+    webpackStream = require('webpack-stream'),
+    webpack = require('webpack'),
+    webpackConfig = require('./webpack.config.js'),
+    clean = require('gulp-clean'),<% } %>
     <% if (usePostCSS) { %>postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
@@ -41,6 +45,7 @@ let paths = {
             },
             src: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
             watch: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
+            <% if (useWebpack) { %>concat: 'web-src/es6',<% } %>
             dist: 'web-src/js/dist',
             app: {
                 src: 'web-src/js/dist/*.js',
@@ -133,7 +138,7 @@ gulp.task('clear', function (done) {
     return cache.clearAll(done);
 });
 
-gulp.task('jslibs', () =>
+gulp.task('js:libs', () =>
     gulp.src(paths.js.libs.src)
         .pipe(concat('libs.all.js'))
         .pipe(cache(uglify({
@@ -144,7 +149,33 @@ gulp.task('jslibs', () =>
         .pipe(notify('JS libs combined'))
 );
 
-gulp.task('jsconcat', () =>
+<% if (useWebpack) { %>
+  gulp.task('js:clean', () =>
+    gulp.src(paths.js.concat + '/app.js')
+        .pipe(clean())
+  );
+
+  gulp.task('js:concat', ['js:clean'], () =>
+      gulp.src(paths.js.src)
+          .pipe(concat('app.js'))
+          .on('error', onError)
+          .pipe(gulp.dest(paths.js.concat))
+  );
+
+  gulp.task('js:compile', ['js:concat'], () =>
+      gulp.src(paths.js.concat)
+          .pipe(webpackStream(webpackConfig, webpack))
+          .pipe(uglify({
+              mangle: true
+          }))
+          .pipe(gulp.dest(paths.js.app.dist))
+          .on('error', onError)
+          .pipe(notify('JS combined'))
+          .pipe(browserSync.stream({match: '**/bundle.js'}))
+  );
+<% } else { %>
+
+gulp.task('js:concat', () =>
     gulp.src(paths.js.src)
         <% if (useES6) { %>.pipe(babel({
             presets: ['es2015']
@@ -158,7 +189,7 @@ gulp.task('jsconcat', () =>
         .pipe(gulp.dest(paths.js.dist))
 );
 
-gulp.task('jscombine', ['jsconcat'], () =>
+gulp.task('js:compile', ['js:concat'], () =>
     gulp.src(paths.js.app.src)
         .pipe(concat('app.js'))
         .pipe(gulp.dest(paths.js.app.dist))
@@ -166,6 +197,7 @@ gulp.task('jscombine', ['jsconcat'], () =>
         .pipe(notify('JS combined'))
         <% if (browserSync) { %>.pipe(browserSync.stream({match: '**/app.js'}))<% } %>
 );
+<% } %>
 
 <% if (browserSync) { %>
 gulp.task('browser-sync', () => {
@@ -226,4 +258,4 @@ gulp.task('watch', ['scss'], () => {
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
-gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'jscombine', 'watch']);
+gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'js:compile', 'watch']);
