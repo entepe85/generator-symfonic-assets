@@ -150,17 +150,19 @@ gulp.task('js:libs', () =>
 );
 
 <% if (useWebpack) { %>
-  gulp.task('js:clean', () =>
-    gulp.src(paths.js.concat + '/app.js')
-        .pipe(clean())
-  );
+  gulp.task('js:clean', () => {
+    let stream = gulp.src(paths.js.concat + '/app.js')
+        .pipe(clean());
+    return stream;
+  });
 
-  gulp.task('js:concat', ['js:clean'], () =>
-      gulp.src(paths.js.src)
+  gulp.task('js:concat', ['js:clean'], () => {
+      let stream = gulp.src(paths.js.src)
           .pipe(concat('app.js'))
           .on('error', onError)
-          .pipe(gulp.dest(paths.js.concat))
-  );
+          .pipe(gulp.dest(paths.js.concat));
+      return stream;
+  });
 
   gulp.task('js:compile', ['js:concat'], () =>
       gulp.src(paths.js.concat)
