@@ -43,7 +43,7 @@ let paths = {
                 src: [<% if (useUIKit || useBootstrap || useJQuery) { %>'bower/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'bower/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'bower/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
                 dist: 'web-src/js/dist'
             },
-            src: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
+            src: <% if (useES6) { %>'web-src/es6/**/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
             watch: <% if (useES6) { %>'web-src/es6/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
             <% if (useWebpack) { %>concat: 'web-src/es6',<% } %>
             dist: 'web-src/js/dist',

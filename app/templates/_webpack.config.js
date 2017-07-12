@@ -1,20 +1,25 @@
 module.exports = {
     entry: {
-        app: ['./web-src/es6/app.js']
+      app: ['./web-src/es6/app.js']<% if (useJQuery || useBootstrap) { %>,
+      libs: ['./web-src/js/dist/libs.all.js']
+      <% } %>
     },
     output: {
-        //path: './dist/js',
+      <% if (useJQuery || useBootstrap) { %>
+        path: '/web/js'
+      <% } else { %>
         filename: 'bundle.js'
+      <% } %>
     },
     module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
-                }
-            }
-        ]
+      rules: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          query: {
+              presets: ['es2015']
+          }
+        }
+      ]
     }
 };

@@ -248,7 +248,7 @@ module.exports = yeoman.Base.extend({
     this.on('end', function () {
       this.log(yosay(
         'Yeah! You\'re all set and done!' +
-        ' Now simply run ' + chalk.green.italic('gulp jslibs') + ' first, then ' + chalk.green.italic('gulp') + ' and start coding!'
+        ' Now simply run ' + chalk.green.italic('gulp js:libs') + ' first, then ' + chalk.green.italic('gulp') + ' and start coding!'
       ));
     });
 
