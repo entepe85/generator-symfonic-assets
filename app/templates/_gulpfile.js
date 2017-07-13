@@ -40,7 +40,7 @@ let paths = {
         },
         js: {
             libs: {
-                src: [<% if (useUIKit || useBootstrap || useJQuery) { %>'bower/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'bower/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'bower/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
+                src: [<% if (useUIKit || useBootstrap || useJQuery && !useWebpack) { %>'bower/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'bower/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'bower/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
                 dist: 'web-src/js/dist'
             },
             src: <% if (useES6) { %>'web-src/es6/**/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
@@ -142,7 +142,7 @@ gulp.task('js:libs', () =>
     gulp.src(paths.js.libs.src)
         .pipe(concat('libs.all.js'))
         .pipe(cache(uglify({
-            mangle: true
+            mangle: false
         })))
         .on('error', onError)
         .pipe(gulp.dest(paths.js.libs.dist))
@@ -256,7 +256,7 @@ gulp.task('watch', ['scss'], () => {
             .pipe(sassLint.format())
             .pipe(sassLint.failOnError())
     });
-    gulp.watch(paths.js.watch, ['jscombine']);
+    gulp.watch(paths.js.watch, ['js:compile']);
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 

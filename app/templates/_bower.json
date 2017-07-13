@@ -16,10 +16,6 @@
     "Neat"
   ],
   "license": "MIT",
-  "dependencies": {<% if (useJQuery) { %>
-    "jquery": "latest"<% } %><% if (useUIKit) { %>
-    "uikit": "latest"<% } %><% if (useBootstrap) { %>
-    "bootstrap-sass": "3.3.5"
-    <% } %>
+  "dependencies": {
   }
 }

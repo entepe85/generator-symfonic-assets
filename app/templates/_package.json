@@ -31,6 +31,9 @@
     "gulp-clean": "latest",
     "webpack": "latest",
     "webpack-stream": "latest",<% } %>
+    <% if (useJQuery || useUIKit || useBootstrap) { %> "jquery": "latest",<% } %>
+    <% if (useUIKit) { %>"uikit": "latest",<% } %>
+    <% if (useBootstrap) { %>"bootstrap-sass": "latest",<% } %>
     "gulp-util": "^3.0.7"
   }
 }
