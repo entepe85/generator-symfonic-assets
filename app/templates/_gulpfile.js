@@ -42,7 +42,7 @@ let paths = {
         },
         js: {
             libs: {
-                src: [<% if (useUIKit || useBootstrap || useJQuery && !useWebpack) { %>'bower/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'bower/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'bower/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
+                src: [<% if (useUIKit || useBootstrap || useJQuery && !useWebpack) { %>'node_modules/jquery/dist/jquery.min.js', <% } %><% if (useUIKit) { %>'node_modules/uikit/js/uikit.min.js', <% } %><% if (useBootstrap) { %>'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js', <% } %> 'web-src/js/libs/*.js'],
                 dist: 'web-src/js/dist'
             },
             src: <% if (useES6) { %>'web-src/es6/**/*.js'<% } else { %>'web-src/js/*.js'<% } %>,
@@ -55,7 +55,7 @@ let paths = {
             }
         },
         fonts: {
-            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'bower/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'bower/uikit/fonts/*'<% } %>]
+            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'node_modules/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'node_modules/uikit/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
             watch: ['src/AppBundle/Resources/views/**/*.html.twig', 'app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']
