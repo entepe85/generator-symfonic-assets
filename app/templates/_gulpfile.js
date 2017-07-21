@@ -173,7 +173,7 @@ gulp.task('js:libs', () =>
           .pipe(gulp.dest(paths.js.app.dist))
           .on('error', onError)
           .pipe(notify('JS combined'))
-          .pipe(browserSync.stream({match: '**/bundle.js'}))
+          .pipe(browserSync.stream({match: '**/app.js'}))
   );
 <% } else { %>
 

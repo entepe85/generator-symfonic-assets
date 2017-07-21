@@ -5,7 +5,7 @@ module.exports = {
     app: [<% if (useJQuery || useBootstrap || useUIKit) { %> './web-src/js/dist/libs.all.js', <% } %>'./web-src/es6/app.js']
   },
   output: {
-    filename: 'bundle.js'
+    filename: 'app.js'
   },
   module: {
     rules: [

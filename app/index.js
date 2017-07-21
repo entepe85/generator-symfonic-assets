@@ -199,6 +199,11 @@ module.exports = yeoman.Base.extend({
           this.templatePath('_src/_es6'),
           this.destinationPath('web-src/es6')
         );
+
+        this.directory(
+          this.templatePath('_src/_es6/_modules'),
+          this.destinationPath('web-src/es6/modules')
+        );
       }
 
       if (this.useWebpack) {
