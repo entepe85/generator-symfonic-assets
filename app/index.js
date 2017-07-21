@@ -69,6 +69,9 @@ module.exports = yeoman.Base.extend({
         default: true
       },
       {
+        when: function (answers) {
+          return answers && answers.es6;
+        },
         type: 'confirm',
         name: 'webpack',
         value: 'useWebpack',
@@ -103,7 +106,11 @@ module.exports = yeoman.Base.extend({
       this.browserSync = props.browserSync;
       this.useImagemin = props.imageMin;
       this.useES6 = props.es6;
-      this.useWebpack = props.webpack;
+      if (props.es6) {
+        this.useWebpack = props.webpack;
+      } else {
+        this.useWebpack = false;
+      }
       this.useJQuery = props.useJQuery;
       this.usePostCSS = props.postCSS;
       useFramework = props.whatFramework;
