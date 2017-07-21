@@ -29,14 +29,14 @@
  * ###################
  */
 
-@import "../css/normalize.css";
+@import "../css/normalize";
 
 <% if (useUIKit) { %>
 // Framework Integration
 $icon-font-path:    "../fonts/";
-@import "../../bower/uikit/scss/uikit-variables";
-@import "../../bower/uikit/scss/uikit-mixins";
-@import "../../bower/uikit/scss/uikit";
+@import "../../node_modules/uikit/scss/uikit-variables";
+@import "../../node_modules/uikit/scss/uikit-mixins";
+@import "../../node_modules/uikit/scss/uikit";
 <% } %>
 
 <% if (useBootstrap) { %>
@@ -44,7 +44,7 @@ $icon-font-path:    "../fonts/";
 // IMPORTANT: To get Glyphicons to work, you need to remove '@at-root'
 //            at bootstraps _glyphicons.scss
 $icon-font-path: "../fonts/";
-@import "../../bower/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 <% } %>
 
 <% if (useBourbon) { %>

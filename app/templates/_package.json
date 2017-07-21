@@ -25,7 +25,7 @@
     "postcss-import": "latest",
     "postcss-short": "^1.4.0",<% } %>
     <% if (useBourbon) { %>"bourbon": "latest",
-    "bourbon-neat": "latest",<% } %>
+    "node-neat": "latest",<% } %>
     <% if (useWebpack) { %>"babel-core": "latest",
     "babel-loader": "latest",
     "gulp-clean": "latest",

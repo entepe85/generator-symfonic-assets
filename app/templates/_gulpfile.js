@@ -16,6 +16,8 @@ let gulp = require('gulp'),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config.js'),
     clean = require('gulp-clean'),<% } %>
+    <& if (useBoubon) { %>bourbon = require('bourbon').includePaths,
+    neat = require('node-neat').includePaths,<% } %>
     <% if (usePostCSS) { %>postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
@@ -87,10 +89,7 @@ gulp.task('scss', () =>
         .pipe(sourcemaps.init())
         .pipe(sass(<% if (useBourbon) { %>
             {
-                includePaths: [
-                    require('bourbon').includePaths,
-                    require('bourbon-neat').includePaths
-                ]
+                includePaths: [].concat(bourbon, neat)
             }<% } %>))
         .on('error', onError)
         <% if (usePostCSS) { %>.pipe(postcss(plugins))<% } else { %>
