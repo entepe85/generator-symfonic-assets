@@ -34,6 +34,7 @@
     <% if (useJQuery || useUIKit || useBootstrap) { %> "jquery": "latest",<% } %>
     <% if (useUIKit) { %>"uikit": "latest",<% } %>
     <% if (useBootstrap) { %>"bootstrap-sass": "latest",<% } %>
+    <% if (useFontAwesome) { %>"font-awesome": "latest",<% } %>
     "gulp-util": "^3.0.7"
   }
 }

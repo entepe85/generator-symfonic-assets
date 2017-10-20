@@ -47,6 +47,11 @@ $icon-font-path: "../fonts/";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 <% } %>
 
+<% if (useFontAwesome) { %>
+@import "../../node_modules/font-awesome/scss/font-awesome";
+$fa-font-path: '../fonts/';
+<% } %>
+
 <% if (useBourbon) { %>
 @import "bourbon";
 @import "neat";

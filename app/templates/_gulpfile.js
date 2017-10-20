@@ -55,7 +55,7 @@ let paths = {
             }
         },
         fonts: {
-            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'node_modules/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'node_modules/uikit/fonts/*'<% } %>]
+            src: ['web-src/fonts/*'<% if (useBootstrap) { %>, 'node_modules/bootstrap-sass/assets/fonts/bootstrap/*'<% } %><% if (useUIKit) { %>, 'node_modules/uikit/fonts/*'<% } %><% if (useFontAwesome) { %>, 'node_modules/font-awesome/fonts/*'<% } %>]
         }<% if (browserSync) { %>,
         twig: {
             watch: ['src/AppBundle/Resources/views/**/*.html.twig', 'app/Resources/views/**/*.html.twig', 'app/Resources/views/*.html.twig']

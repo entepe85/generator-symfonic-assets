@@ -98,6 +98,13 @@ module.exports = yeoman.Base.extend({
         value: 'useImagemin',
         message: 'Do you want to use gulp-imagemin for image optimizations?',
         default: true
+      },
+      {
+        type: 'confirm',
+        name: 'FontAwesome',
+        value: 'useFontAwesome',
+        message: 'Do you want to include Font Awesome?',
+        default: false
       }];
 
     return this.prompt(prompts).then(function (props) {
@@ -105,6 +112,7 @@ module.exports = yeoman.Base.extend({
       this.projectName = props.projectName;
       this.browserSync = props.browserSync;
       this.useImagemin = props.imageMin;
+      this.useFontAwesome = props.FontAwesome;
       this.useES6 = props.es6;
       if (props.es6) {
         this.useWebpack = props.webpack;
@@ -165,7 +173,8 @@ module.exports = yeoman.Base.extend({
         usePostCSS:     this.usePostCSS,
         projectName:    this.projectName,
         browserSync:    this.browserSync,
-        useImagemin:    this.useImagemin
+        useImagemin:    this.useImagemin,
+        useFontAwesome: this.useFontAwesome
       };
 
       this.fs.copy(
