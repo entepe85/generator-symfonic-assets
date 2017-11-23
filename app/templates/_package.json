@@ -35,6 +35,8 @@
     <% if (useUIKit) { %>"uikit": "latest",<% } %>
     <% if (useBootstrap) { %>"bootstrap-sass": "latest",<% } %>
     <% if (useFontAwesome) { %>"font-awesome": "latest",<% } %>
+    "gulp-filesize": "latest",
+    "map-stream": "latest",
     "gulp-util": "^3.0.7"
   }
 }

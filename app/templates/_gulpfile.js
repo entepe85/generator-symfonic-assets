@@ -259,4 +259,38 @@ gulp.task('watch', ['scss'], () => {
     <% if (browserSync) { %>gulp.watch(paths.twig.watch, () => browserSync.reload());<% } %>
 });
 
-gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'js:compile', 'watch']);
+gulp.task("watch:sizes", () => {
+    gulp.watch(`${paths.scss.dist}/*.css`, file => {
+        gulp
+            .src(file.path)
+            .on("error", onError)
+            .pipe(size());
+    });
+    gulp.watch(`${paths.js.app.dist}/*.js`, file => {
+        gulp
+            .src(file.path)
+            .on("error", onError)
+            .pipe(size());
+    });
+});
+
+gulp.task("assets:sizes", () => {
+    gulp
+        .src(`${paths.scss.dist}/app.css`)
+        .on("error", onError)
+        .pipe(size());
+    gulp
+        .src(`${paths.js.app.dist}/app.js`)
+        .on("error", onError)
+        .pipe(size());
+});
+
+let libsSize = (file, cb) => {
+    gulp.src(file.path).pipe(size());
+};
+
+gulp.task("libs:sizes", () => {
+    gulp.src(paths.js.libs.src).pipe(map(libsSize));
+});
+
+gulp.task('default', ['startup', 'assets',<% if (browserSync) { %> 'browser-sync',<% } %> 'fonts', 'adminfiles',<% if (useImagemin) { %> 'images',<% } %> 'scss', 'js:compile', 'watch', 'watch:sizes']);
