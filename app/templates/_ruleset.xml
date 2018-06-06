@@ -3,4 +3,8 @@
     <description>bdrops PHPCS coding standards</description>
     <rule ref="PSR2"></rule>
     <rule ref="Zend"></rule>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+    <exclude-pattern>*/var/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/bin/*</exclude-pattern>
 </ruleset>
